@@ -52,16 +52,33 @@ char *test_insert()
 
 char *test_search()
 {
+  void *res = TSTree_search(root, key2, strlen(key2));
+  mu_assert(res == val2, "Wrong value found for key2");
+
+  res = TSTree_search(root, prefix, strlen(prefix));
+  mu_assert(res == NULL, "Should not find value for non-existant key");
+
   return NULL;
 }
 
 char *test_search_prefix()
 {
+  void *res = TSTree_search_prefix(root, "TE", strlen("TE"));
+  mu_assert(res == val2, "Failed to search with prefix");
+
+  res = TSTree_search_prefix(root, prefix, strlen(prefix));
+  mu_assert(res == val1, "Failed to search with partial prefix");
+
+  res = TSTree_search_prefix(root, key4, 2);
+  mu_assert(res == val4, "Failed to search with prefix length 2")
+
   return NULL;
 }
 
 char *test_destroy()
 {
+  TSTree_destroy(root);
+
   return NULL;
 }
 
