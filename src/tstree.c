@@ -121,6 +121,22 @@ error:
   return NULL;
 }
 
+void TSTree_traverse(TSTree *root, TSTree_traverse_cb cb, void *data)
+{
+  if(root == NULL) return;
+
+  if(root->low) TSTree_traverse(root->low, cb, data);
+
+  if(root->equal) TSTree_traverse(root->equal, cb, data);
+
+  if(root->high) TSTree_traverse(root->high, cb, data);
+
+  if(root->value) cb(root->value, data);
+
+  return;
+}
+
+
 void TSTree_destroy(TSTree *root)
 {
   if(root == NULL) return;

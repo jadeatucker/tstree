@@ -16,7 +16,10 @@
  *      along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Must include assert after minunit when NDEBUG is defined
 #include "minunit.h"
+#include <assert.h>
+
 #include "dbg.h"
 #include "tstree.h"
 
@@ -75,6 +78,27 @@ char *test_search_prefix()
   return NULL;
 }
 
+void TSTree_traverse_test_cb(void *value, void *data)
+{
+  assert(value && "Should not get a NULL value");
+  assert(data && "Data should not be NULL");
+
+  int *count = (int *) data;
+  (*count)++;
+
+  return;
+}
+
+char *test_traverse()
+{
+  int cb_count = 0;
+
+  TSTree_traverse(root, TSTree_traverse_test_cb, &cb_count);
+  mu_assert(cb_count == 4, "Traverse count should be equal to num keys");
+
+  return NULL;
+}
+
 char *test_destroy()
 {
   TSTree_destroy(root);
@@ -89,6 +113,7 @@ char *all_tests()
   mu_run_test(test_insert);
   mu_run_test(test_search);
   mu_run_test(test_search_prefix);
+  mu_run_test(test_traverse);
   mu_run_test(test_destroy);
 
   return NULL;
