@@ -8,4 +8,4 @@ make
 ```
 
 References:
-  Wikipedia[http://en.wikipedia.org/wiki/Ternary_search_tree]
+  [Wikipedia](http://en.wikipedia.org/wiki/Ternary_search_tree)
