@@ -26,3 +26,6 @@ data/
 
 # Compiled tests
 tests/*_test
+
+# Compile programs
+bin/like
